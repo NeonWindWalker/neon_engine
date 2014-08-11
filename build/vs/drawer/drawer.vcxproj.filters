@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\..\..\code\drawer\batch.h" />
+    <ClInclude Include="..\..\..\code\drawer\compile.h" />
+    <ClInclude Include="..\..\..\code\drawer\device.h" />
+    <ClInclude Include="..\..\..\code\drawer\include.h" />
+    <ClInclude Include="..\..\..\code\drawer\interfaceDrawHelper.h" />
+    <ClInclude Include="..\..\..\code\drawer\log.h" />
+    <ClInclude Include="..\..\..\code\drawer\platformspecific.h" />
+    <ClInclude Include="..\..\..\code\drawer\resources.h" />
+    <ClInclude Include="..\..\..\code\drawer\seed.h" />
+    <ClInclude Include="..\..\..\code\drawer\vertexFormat.h" />
+    <ClInclude Include="..\..\..\code\drawer\hal\base.h">
+      <Filter>hal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\drawer\hal\include.h">
+      <Filter>hal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\drawer\hal\opengl\androidBaseDevice.h">
+      <Filter>hal\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\drawer\hal\opengl\context.h">
+      <Filter>hal\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\drawer\hal\opengl\device.h">
+      <Filter>hal\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\drawer\hal\opengl\include.h">
+      <Filter>hal\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\drawer\hal\opengl\renderTarget.h">
+      <Filter>hal\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\drawer\hal\opengl\resources.h">
+      <Filter>hal\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\drawer\hal\opengl\shader.h">
+      <Filter>hal\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\drawer\hal\opengl\win32BaseDevice.h">
+      <Filter>hal\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\drawer\hal\opengl\x11BaseDevice.h">
+      <Filter>hal\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\drawer\robust\robust.h">
+      <Filter>robust</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\drawer\tests\compile.h">
+      <Filter>tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\drawer\tests\mesh.h">
+      <Filter>tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\drawer\reflection.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\code\drawer\device.cpp" />
+    <ClCompile Include="..\..\..\code\drawer\factory.cpp" />
+    <ClCompile Include="..\..\..\code\drawer\interfaceDrawHelper.cpp" />
+    <ClCompile Include="..\..\..\code\drawer\log.cpp" />
+    <ClCompile Include="..\..\..\code\drawer\hal\opengl\androidBaseDevice.cpp">
+      <Filter>hal\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\code\drawer\hal\opengl\context.cpp">
+      <Filter>hal\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\code\drawer\hal\opengl\device.cpp">
+      <Filter>hal\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\code\drawer\hal\opengl\renderTarget.cpp">
+      <Filter>hal\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\code\drawer\hal\opengl\resources.cpp">
+      <Filter>hal\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\code\drawer\hal\opengl\shader.cpp">
+      <Filter>hal\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\code\drawer\hal\opengl\win32BaseDevice.cpp">
+      <Filter>hal\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\code\drawer\hal\opengl\x11BaseDevice.cpp">
+      <Filter>hal\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\code\drawer\robust\drawPipeline.cpp">
+      <Filter>robust</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\code\drawer\robust\robust.cpp">
+      <Filter>robust</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\code\drawer\robust\shaderCodes.cpp">
+      <Filter>robust</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\code\drawer\tests\test.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="libbase.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="libentrypoint.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="libfilestorage.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="libimage.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="hal">
+      <UniqueIdentifier>{6d5a5864-81c6-4270-a261-0d1786fff5ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hal\opengl">
+      <UniqueIdentifier>{3f2da413-5e6c-442a-8e26-9a5cb59035c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="robust">
+      <UniqueIdentifier>{273f27e5-cf68-47a1-a277-f4c701ecda8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tests">
+      <UniqueIdentifier>{41f9d2fc-5ffa-4b87-8e56-072646d47cc2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

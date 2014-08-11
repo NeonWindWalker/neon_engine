@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="mander">
+      <UniqueIdentifier>{6c0e7c66-c203-4961-a7fb-7cc47ae5e1c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="meshexp">
+      <UniqueIdentifier>{31b9df7e-7b50-4eb8-bdfb-9c236d1b577a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs">
+      <UniqueIdentifier>{a96d265b-a7d2-4789-a064-e488efcb63a2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\code\mander\include.h">
+      <Filter>mander</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\mander\indexes.h">
+      <Filter>mander</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\mander\optimizer.h">
+      <Filter>mander</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\meshexp\compile.h">
+      <Filter>meshexp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\meshexp\include.h">
+      <Filter>meshexp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\meshexp\descs.h">
+      <Filter>meshexp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\meshexp\meshDesc.h">
+      <Filter>meshexp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\mander\tbn.h">
+      <Filter>mander</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\mander\compile.h">
+      <Filter>mander</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\code\meshexp\meshexp.cpp">
+      <Filter>meshexp</Filter>
+    </ClCompile>
+    <ClCompile Include="libbase.cpp">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="libreflection.cpp">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="libfilestorage.cpp">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\code\mander\tipsify.cpp">
+      <Filter>mander</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

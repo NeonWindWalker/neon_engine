@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\code\base\alghoritms.h" />
+    <ClInclude Include="..\..\..\code\base\allocator.h" />
+    <ClInclude Include="..\..\..\code\base\array.h" />
+    <ClInclude Include="..\..\..\code\base\backtrace.h" />
+    <ClInclude Include="..\..\..\code\base\bindata.h" />
+    <ClInclude Include="..\..\..\code\base\cellAllocator.h" />
+    <ClInclude Include="..\..\..\code\base\comparator.h" />
+    <ClInclude Include="..\..\..\code\base\compile.h" />
+    <ClInclude Include="..\..\..\code\base\config.h" />
+    <ClInclude Include="..\..\..\code\base\delegate.h" />
+    <ClInclude Include="..\..\..\code\base\delegate_impl.h" />
+    <ClInclude Include="..\..\..\code\base\float.h" />
+    <ClInclude Include="..\..\..\code\base\hash.h" />
+    <ClInclude Include="..\..\..\code\base\hashArray.h" />
+    <ClInclude Include="..\..\..\code\base\hashMap.h" />
+    <ClInclude Include="..\..\..\code\base\hashTable.h" />
+    <ClInclude Include="..\..\..\code\base\include.h" />
+    <ClInclude Include="..\..\..\code\base\int.h" />
+    <ClInclude Include="..\..\..\code\base\list.h" />
+    <ClInclude Include="..\..\..\code\base\log.h" />
+    <ClInclude Include="..\..\..\code\base\math.h" />
+    <ClInclude Include="..\..\..\code\base\matrix.h" />
+    <ClInclude Include="..\..\..\code\base\memory.h" />
+    <ClInclude Include="..\..\..\code\base\newdelete.h" />
+    <ClInclude Include="..\..\..\code\base\pair.h" />
+    <ClInclude Include="..\..\..\code\base\quaternion.h" />
+    <ClInclude Include="..\..\..\code\base\range.h" />
+    <ClInclude Include="..\..\..\code\base\redBlackTree.h" />
+    <ClInclude Include="..\..\..\code\base\redBlackTreeMap.h" />
+    <ClInclude Include="..\..\..\code\base\scalar.h" />
+    <ClInclude Include="..\..\..\code\base\seed.h" />
+    <ClInclude Include="..\..\..\code\base\simd.h" />
+    <ClInclude Include="..\..\..\code\base\smartPointers.h" />
+    <ClInclude Include="..\..\..\code\base\sortedArray.h" />
+    <ClInclude Include="..\..\..\code\base\spaceSubdivision.h" />
+    <ClInclude Include="..\..\..\code\base\spline.h" />
+    <ClInclude Include="..\..\..\code\base\string.h" />
+    <ClInclude Include="..\..\..\code\base\sync.h" />
+    <ClInclude Include="..\..\..\code\base\tempAllocator.h" />
+    <ClInclude Include="..\..\..\code\base\tests\compile.h" />
+    <ClInclude Include="..\..\..\code\base\tests\tests.h" />
+    <ClInclude Include="..\..\..\code\base\threading.h" />
+    <ClInclude Include="..\..\..\code\base\timer.h" />
+    <ClInclude Include="..\..\..\code\base\vector.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\code\base\backtrace.cpp" />
+    <ClCompile Include="..\..\..\code\base\base.cpp" />
+    <ClCompile Include="..\..\..\code\base\log.cpp" />
+    <ClCompile Include="..\..\..\code\base\memory.cpp" />
+    <ClCompile Include="..\..\..\code\base\string.cpp" />
+    <ClCompile Include="..\..\..\code\base\tests\test_alghoritms.cpp" />
+    <ClCompile Include="..\..\..\code\base\tests\test_allocators.cpp" />
+    <ClCompile Include="..\..\..\code\base\tests\test_containers.cpp" />
+    <ClCompile Include="..\..\..\code\base\tests\test_delegates.cpp" />
+    <ClCompile Include="..\..\..\code\base\tests\test_math.cpp" />
+    <ClCompile Include="..\..\..\code\base\tests\test_scalar.cpp" />
+    <ClCompile Include="..\..\..\code\base\tests\test_smartPointers.cpp" />
+    <ClCompile Include="..\..\..\code\base\tests\test_strings.cpp" />
+    <ClCompile Include="..\..\..\code\base\tests\test_threading.cpp" />
+    <ClCompile Include="..\..\..\code\base\threading.cpp" />
+    <ClCompile Include="..\..\..\code\base\timer.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E45AC702-82C8-4332-B28F-71716B6C0A6D}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>base</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120_xp</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Dbghelp.lib;WINMM.LIB;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>Dbghelp.lib;WINMM.LIB;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

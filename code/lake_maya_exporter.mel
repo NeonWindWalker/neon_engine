@@ -1,0 +1,429 @@
+global proc lake_export_selected_geometry(string $obj, int $fileId, string $prefix)
+{
+	// set to one to turn debug messsages on
+	int $debugOut=0;
+	// set to one to turn info messsages on
+	int $infoMessages=0;
+
+	// write arrays	
+	int $faceVertices[];
+	float $vertexData[];
+	float $normalData[];
+	float $uvData[];
+	float $indexedNormals[];
+	float $indexedUVs[];
+	int $hasUVs = true;
+
+	string $faceToVertex[] = `polyInfo -faceToVertex`;
+	int $size = `size $faceToVertex`;
+	int $faces = $size;
+	int $vertices = $size*3;
+	int $iter=0;
+	while ($iter < $size)
+	{	
+		string $oneFaceToVertex[];
+		tokenize($faceToVertex[$iter],$oneFaceToVertex);
+		int $x = (int) $oneFaceToVertex[2];
+		$faceVertices[$iter*3] = $x;
+		$x = (int) $oneFaceToVertex[3];
+		$faceVertices[$iter*3+1] = $x;
+		$x = (int) $oneFaceToVertex[4];
+		$faceVertices[$iter*3+2] = $x;
+		if ($debugOut)
+			print("VertexFace: "+$oneFaceToVertex[1] +" VertexIndex:"+ $oneFaceToVertex[2] +", "+ $oneFaceToVertex[3] +", "+ $oneFaceToVertex[4] + "\n");
+		$iter++;
+	}
+	int $pe[] = `polyEvaluate -v`;
+	$size = $pe[0];
+	int $numVertices = $size;
+	int $indexedFaces = $size;
+	$vertices= $size*3;
+	if ($infoMessages)
+		print ("Vertex count : "+ $size + "\n");
+	
+	$iter=0;
+	while ($iter<$size)
+	{
+		string $x  = $obj+".vtx["+$iter+"]"; 
+		float $vtx[] = `pointPosition -l $x`;
+		if ($debugOut)
+			print("Vertex " + $iter + ": " + $vtx[0] +", "+ $vtx[1] +", "+ $vtx[2] + "\n");
+		$vertexData[$iter*3] = $vtx[0];
+		$vertexData[$iter*3+1] = $vtx[1];
+		$vertexData[$iter*3+2] = $vtx[2];
+		$iter++;
+	}
+
+	$iter=0;
+	$size = $faces;
+	float $normal[];
+	if ($infoMessages)
+		print ("Normal count : "+ $size*3 + "\n");
+	string $temp;
+	
+	string $currSelection[] = `ls -sl`;
+	// extract normal data
+	while ($iter<$size)
+	{
+		if ($infoMessages)
+			print("index: " + $iter + "\n");
+		$temp = $obj+".vtxFace["+$faceVertices[$iter*3]+"]["+$iter+"]";
+		select -r $temp;
+		$normal = `polyNormalPerVertex -q -xyz`;
+		$normalData[$iter*9] = $normal[0];
+		$normalData[$iter*9+1] = $normal[1];
+		$normalData[$iter*9+2] = $normal[2];
+		if ($debugOut)
+			print("face " + $iter + ", normal 1: " + $normalData[$iter*9] +", "+ $normalData[$iter*9+1] +", "+ $normalData[$iter*9+2] + "\n");
+		
+		$temp = $obj+".vtxFace["+$faceVertices[$iter*3+1]+"]["+$iter+"]";
+		select -r $temp;
+		$normal = `polyNormalPerVertex -q -xyz`;
+		$normalData[$iter*9+3] = $normal[0];
+		$normalData[$iter*9+4] = $normal[1];
+		$normalData[$iter*9+5] = $normal[2];			
+		if ($debugOut)
+			print("face " + $iter + ", normal 2: " + $normalData[$iter*9+3] +", "+ $normalData[$iter*9+4] +", "+ $normalData[$iter*9+5] + "\n");
+
+		$temp = $obj+".vtxFace["+$faceVertices[$iter*3+2]+"]["+$iter+"]";
+		select -r $temp;
+		$normal = `polyNormalPerVertex -q -xyz`;
+		$normalData[$iter*9+6] = $normal[0];
+		$normalData[$iter*9+7] = $normal[1];
+		$normalData[$iter*9+8] = $normal[2];			
+		if ($debugOut)
+			print("face " + $iter + ", normal 3: " + $normalData[$iter*9+6] +", "+ $normalData[$iter*9+7] +", "+ $normalData[$iter*9+8] + "\n");
+		
+		$iter++;
+	}	
+	if ($infoMessages)
+		print ("UV count : "+ $size*3 + "\n");
+	
+	// extract uv data
+	$iter = 0;
+	float $fArray[];
+	string $sArray[];
+	while ($iter<$size)
+	{			
+		$temp = $obj+".vtxFace["+$faceVertices[$iter*3]+"]["+$iter+"]";
+		select -r $temp;
+		$sArray = `polyListComponentConversion -fromVertexFace -toUV`;
+		if (!size($sArray))
+		{
+			print("No UV's foun\n");
+			$hasUVs = false;
+			break;
+		}
+
+		$fArray = `polyEditUV -q $sArray[0]`;
+		$uvData[$iter*6] = $fArray[0];
+		$uvData[$iter*6+1] = $fArray[1];
+		if ($debugOut)
+			print("face " + $iter + ", uv 1: " + $uvData[$iter*6] + ", " + $uvData[$iter*6+1] + "\n");
+
+		$temp = $obj+".vtxFace["+$faceVertices[$iter*3+1]+"]["+$iter+"]";
+		select -r $temp;
+		$sArray = `polyListComponentConversion -fromVertexFace -toUV`;
+		$fArray = `polyEditUV -q $sArray[0]`;
+		$uvData[$iter*6+2] = $fArray[0];
+		$uvData[$iter*6+3] = $fArray[1];
+		if ($debugOut)
+			print("face " + $iter + ", uv 2: " + $uvData[$iter*6+2] + ", " + $uvData[$iter*6+3] + "\n");
+
+		$temp = $obj+".vtxFace["+$faceVertices[$iter*3+2]+"]["+$iter+"]";
+		select -r $temp;
+		$sArray = `polyListComponentConversion -fromVertexFace -toUV`;
+		$fArray = `polyEditUV -q $sArray[0]`;
+		$uvData[$iter*6+4] = $fArray[0];
+		$uvData[$iter*6+5] = $fArray[1];
+		if ($debugOut)
+			print("face " + $iter + ", uv 3: " + $uvData[$iter*6+4] + ", " + $uvData[$iter*6+5] + "\n");
+
+		$iter++;	
+	}
+
+	select -r $currSelection;
+	
+	fprint $fileId ($prefix + "vertexes\n");
+	fprint $fileId ($prefix + "{\n");
+	int $iter=0;
+	while ($iter < ($faces * 3))
+	{
+		int $vertInd = $faceVertices[$iter];
+		fprint $fileId ($prefix + "\t");
+		fprint $fileId "! $ { ";
+		fprint $fileId ("p \"" + $vertexData[ $vertInd*3 + 0 ] + " " + $vertexData[ $vertInd*3 + 1 ] + " " + $vertexData[ $vertInd*3 + 2 ] + "\" "); 
+		fprint $fileId ("n \"" + $normalData[$iter*3 + 0] + " " + $normalData[$iter*3 + 1] + " " + $normalData[$iter*3 + 2] + "\" "); 
+		fprint $fileId ("t \"" + $uvData[$iter*2 + 0] + " " + $uvData[$iter*2 + 1] + "\" "); 
+		fprint $fileId " }\n";
+		$iter++;
+	}
+	fprint $fileId ($prefix + "}\n");
+}
+
+global proc int lakeIsTrasformRepresentBone( string $obj )
+{  
+	string $objNotesName = $obj + ".notes";
+	string $objNotes = "";
+	if( `attributeQuery -exists -node $obj "notes" ` )
+		$objNotes = `getAttr $objNotesName`;
+	string $objNoteArr[];
+	tokenize ($objNotes, $objNoteArr);
+	return `stringArrayContains "Bone" $objNoteArr`;
+}  
+
+
+
+global proc lake_export()
+{
+	string $currentSceneNativePath = `file -q -sn`;
+	string $currentScenePaths[] = stringToStringArray(fromNativePath($currentSceneNativePath),"/");
+	int $rootDirIndex = size($currentScenePaths);
+	string $rootPath = "";
+	int $n;
+	while( $rootDirIndex >= 0)
+	{
+		string $path = "";
+		for($n = 0; $n < $rootDirIndex; $n ++)
+			$path += $currentScenePaths[$n] + "/";
+			
+		$rootPath = $path;
+		$path += "ThisIsRoot";
+		
+		//print ($path + "\n");
+		
+		if( `file -q -exists $path` )
+			break;
+			
+		$rootDirIndex --;
+	}
+
+	if($rootDirIndex < 0)
+	{
+		print "Maya file MUST be in sources directory\n";
+		return;
+	}
+
+	string $localPath = "";
+	for($n = $rootDirIndex + 1; $n < size($currentScenePaths); $n ++)
+		$localPath += $currentScenePaths[$n] + "/";
+
+	$localPath = `substring $localPath 1 (size($localPath) - 4)`;
+	//print ($localPath + "\n");
+
+
+	string $meshFileName = $rootPath + "meshexp.r";
+	string $paramsFileName = $rootPath + "meshexp.par";
+	int $paramsFileId = `fopen $paramsFileName "w"`;
+	fprint $paramsFileId $localPath;
+	fclose $paramsFileId;
+
+	int $fileId = `fopen $meshFileName "w"`;
+	string $oldSelection[] = `ls -sl`;
+	string $totalObjectList[] = `ls`;
+	string $obj;
+	for ( $obj in $totalObjectList ) 
+	{ 
+		string $type = `nodeType $obj`;
+		if ( "mesh" == $type || $type == "nurbsSurface" )
+		{
+			string $shape = $obj;
+			string $parents[] = `listRelatives -allParents -type transform $shape`;
+			
+			for ( $tm in $parents )
+			{
+				string $tmN = $tm + ".notes";
+				string $userNotes = "";
+				if( `attributeQuery -exists -node $tm "notes" ` )
+					$userNotes = `getAttr $tmN`;
+				string $userNoteArr[];
+				tokenize ($userNotes, $userNoteArr);
+				if( `stringArrayContains "NoMesh" $userNoteArr` )
+					continue;
+				
+				string $mySGs[] = `listConnections -type shadingEngine $shape`;
+				if($mySGs[0] == "")
+					continue;
+					
+				print ($tm + " " + $shape + "\n");
+				select -r $tm;
+			
+				fprint $fileId "! \$ @MeshExpLib::TriangleGeometry\n";
+				fprint $fileId "{\n";
+				fprint $fileId ("\tname \"" + $tm + "\"\n");
+				
+				string $surfaceShader[] = `listConnections ($mySGs[0] + ".surfaceShader")`;
+				string $materialName = substituteAllString($surfaceShader[0], "__", "/");
+				fprint $fileId ("\tmaterial \"" + $materialName + "\"\n");
+				
+				if( `stringArrayContains "AlphaTest" $userNoteArr` )
+					fprint $fileId ("\tmaterialMethaType \"AlphaTest\"\n");
+					
+				if( `stringArrayContains "Transparent" $userNoteArr` )
+					fprint $fileId ("\tmaterialMethaType \"Transparent\"\n");
+					
+				if( `stringArrayContains "Metal" $userNoteArr` )
+					fprint $fileId ("\tmetal 1 \n");
+					
+				if( `stringArrayContains "TwoSided" $userNoteArr` )
+					fprint $fileId ("\ttwoSided 1 \n");
+					
+				if( `attributeQuery -exists -node $tm "Id" ` )
+				{
+					$tmN = $tm + ".Id";
+					int $nIdAttr = `getAttr $tmN`;
+					fprint $fileId ("\tid " + $nIdAttr + " \n");
+				}
+				
+				if( `attributeQuery -exists -node $tm "Frame" ` )
+				{
+					$tmN = $tm + ".Frame";
+					int $nFrameAttr = `getAttr $tmN`;
+					fprint $fileId ("\tframe " + $nFrameAttr + " \n");
+				}
+				
+				if( `attributeQuery -exists -node $tm "FrameCount" ` )
+				{
+					$tmN = $tm + ".FrameCount";
+					int $nFrameCountAttr = `getAttr $tmN`;
+					fprint $fileId ("\tframeCount " + $nFrameCountAttr + " \n");
+				}
+				
+				if( `attributeQuery -exists -node $tm "Lod" ` )
+				{
+					$tmN = $tm + ".Lod";
+					int $nLodAttr = `getAttr $tmN`;
+					fprint $fileId ("\tlod " + $nLodAttr + " \n");
+				}
+				
+				string $removeList[];
+				if( $type == "nurbsSurface" )
+				{
+					$removeList = `nurbsToPoly $tm`;
+					
+					$tm = $removeList[0];
+					$shape = $removeList[0];
+					select -r $shape;
+				}
+				
+				if( $type == "mesh" )
+				{
+					$removeList = `duplicate $tm`;
+					polyTriangulate $removeList[0];
+				
+					$tm = $removeList[0];
+					$shape = $removeList[0];
+					select -r $shape;
+				}
+				
+				float $matrix[] = `xform -q -m -a -ws`;
+				fprint $fileId "\tmatrix \"";
+				fprint $fileId ($matrix[0] + " ");
+				fprint $fileId ($matrix[1] + " ");
+				fprint $fileId ($matrix[2] + " ");
+				fprint $fileId ($matrix[4] + " ");
+				fprint $fileId ($matrix[5] + " ");
+				fprint $fileId ($matrix[6] + " ");
+				fprint $fileId ($matrix[8] + " ");
+				fprint $fileId ($matrix[9] + " ");
+				fprint $fileId ($matrix[10] + " ");
+				fprint $fileId ($matrix[12] + " ");
+				fprint $fileId ($matrix[13] + " ");
+				fprint $fileId ($matrix[14]);
+				fprint $fileId "\"\n";
+				
+				
+				//find bone
+				$parentList = `listRelatives -p $tm` ;  
+				while(size($parentList) > 0)
+				{
+					if( lakeIsTrasformRepresentBone($parentList[0]) )
+					{
+						print ("bone: " + $parentList[0] + "\n");
+						fprint $fileId ("\tparent \"" + $parentList[0] + "\" \n");
+						break;
+					}
+					
+					$parentList = `listRelatives -p $parentList[0]` ;  
+				}  
+				
+				
+				lake_export_selected_geometry( $shape, $fileId, "\t" );
+				
+				fprint  $fileId "}\n";
+				
+				if( $removeList[0] != "")
+				{
+					select -r $removeList;
+					delete;
+				}
+			}
+		}
+		else if( "transform" == $type )
+		{
+			if( lakeIsTrasformRepresentBone($obj) )
+			{
+				print ("tmbone: " + $obj + "\n");
+				fprint $fileId "! \$ @MeshExpLib::Bone\n";
+				fprint $fileId "{\n";
+				fprint $fileId ("\tname \"" + $obj + "\"\n");
+				
+				//find bone
+				$parentList = `listRelatives -p $obj` ;  
+				while(size($parentList) > 0)
+				{
+					if( lakeIsTrasformRepresentBone($parentList[0]) )
+					{
+						print ("parent: " + $parentList[0] + "\n");
+						fprint $fileId ("\tparent \"" + $parentList[0] + "\" \n");
+						break;
+					}
+					
+					$parentList = `listRelatives -p $parentList[0]` ;  
+				} 
+				
+				if( `attributeQuery -exists -node $obj "Id" ` )
+				{
+					$tmN = $obj + ".Id";
+					int $nIdAttr = `getAttr $tmN`;
+					fprint $fileId ("\tid " + $nIdAttr + " \n");
+				}
+				
+				select $obj;
+				
+				float $matrix[] = `xform -q -m -a -ws`;
+				fprint $fileId "\tmatrix \"";
+				fprint $fileId ($matrix[0] + " ");
+				fprint $fileId ($matrix[1] + " ");
+				fprint $fileId ($matrix[2] + " ");
+				fprint $fileId ($matrix[4] + " ");
+				fprint $fileId ($matrix[5] + " ");
+				fprint $fileId ($matrix[6] + " ");
+				fprint $fileId ($matrix[8] + " ");
+				fprint $fileId ($matrix[9] + " ");
+				fprint $fileId ($matrix[10] + " ");
+				fprint $fileId ($matrix[12] + " ");
+				fprint $fileId ($matrix[13] + " ");
+				fprint $fileId ($matrix[14]);
+				fprint $fileId "\"\n";
+				
+				fprint  $fileId "}\n";
+			}
+		}
+		
+		
+	}
+
+	fclose $fileId;
+	select -r $oldSelection ;
+	print "Complite gen data, run packer...\n";
+	string $exePath = toNativePath($rootPath + "meshexp.exe");
+	//print $exePath;
+	system $exePath;
+}
+
+lake_export();
+
+
+	
+ 

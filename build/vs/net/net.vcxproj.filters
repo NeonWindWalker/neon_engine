@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="tests">
+      <UniqueIdentifier>{54a035e6-63bf-4016-988f-a0f542285f68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs">
+      <UniqueIdentifier>{a4224695-e47d-4e32-b2d8-a4b262dd9dc6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\code\net\tests\include.h">
+      <Filter>tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\net\tests\compile.h">
+      <Filter>tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\net\compile.h" />
+    <ClInclude Include="..\..\..\code\net\include.h" />
+    <ClInclude Include="..\..\..\code\net\udp.h" />
+    <ClInclude Include="..\..\..\code\net\base.h" />
+    <ClInclude Include="..\..\..\code\net\socket.h" />
+    <ClInclude Include="..\..\..\code\net\loc.h" />
+    <ClInclude Include="..\..\..\code\net\tcp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\code\net\tests\test_udp.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="libbase.cpp">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="libnet.cpp">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\code\net\udp.cpp" />
+    <ClCompile Include="..\..\..\code\net\socket.cpp" />
+    <ClCompile Include="..\..\..\code\net\tcp.cpp" />
+  </ItemGroup>
+</Project>

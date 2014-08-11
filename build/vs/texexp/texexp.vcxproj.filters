@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="libbase.cpp" />
+    <ClCompile Include="libfilestorage.cpp" />
+    <ClCompile Include="libtexexp.cpp" />
+    <ClCompile Include="..\..\..\code\texexp\texexp.cpp">
+      <Filter>texexp</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="libimage.cpp" />
+    <ClCompile Include="libimage1.c" />
+    <ClCompile Include="libjpeg0.c" />
+    <ClCompile Include="libjpeg1.c" />
+    <ClCompile Include="libjpeg2.c" />
+    <ClCompile Include="libjpeg3.c" />
+    <ClCompile Include="libpng0.c" />
+    <ClCompile Include="libzip0.c" />
+    <ClCompile Include="libzip1.c" />
+    <ClCompile Include="libzip2.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="texexp">
+      <UniqueIdentifier>{ab0e7317-6e16-420b-a18c-48c95d1a9dbb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\code\texexp\compile.h">
+      <Filter>texexp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\texexp\include.h">
+      <Filter>texexp</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

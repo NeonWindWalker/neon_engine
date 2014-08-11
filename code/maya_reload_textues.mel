@@ -1,0 +1,6 @@
+string $files[] = `ls -type "file"`;
+for ( $file in $files )
+{
+	string $fileName = `getAttr ( $file + ".fileTextureName" )`;
+	setAttr -type "string" ( $file + ".fileTextureName" ) $fileName;
+}

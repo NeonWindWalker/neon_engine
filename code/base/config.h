@@ -1,0 +1,220 @@
+#pragma once
+
+#ifdef _MSC_VER
+
+	#pragma warning( disable:4345 )		// int()
+	#pragma warning( disable:4290 )		// nothrow
+	#pragma warning( disable:4355 )		// Class() : lel(this)
+	#pragma warning( disable:4996 )		// sprintf and local settings
+	#pragma warning( disable:4316 )		// object allocated on the heap may not be aligned 16 
+
+
+
+	#define INLINE_NO_DEBUG __forceinline
+	#define NOINLINE __declspec(noinline)
+	#define DECLARE_ALIGN(s) __declspec(align(s))
+	#define THIS_IS_USED
+	#define THREAD_LOCAL __declspec(thread)
+
+	#ifdef _DEBUG
+		#define DEBUG
+		#define INLINE inline
+	#else
+		#define INLINE __forceinline
+		#undef DEBUG
+	#endif
+
+	#define INT_SIZE 4
+	#define DEFAULT_IMPLY_ALIGMENT 4
+
+	#if _M_IX86_FP == 1
+		#define INSTRUCTIONS_SIMD
+		#define INSTRUCTIONS_SSE
+	#endif
+
+	#if _M_IX86_FP == 2
+		#define INSTRUCTIONS_SIMD
+		#define INSTRUCTIONS_SSE
+		#define INSTRUCTIONS_SSE2
+	#endif
+
+	#ifndef _CPPUNWIND
+		#define NO_EXCEPTIONS
+	#endif
+
+	#ifdef _M_IX86
+		#define ARCH_X86
+		#define LITTLE_ENDIAN_ARCH
+	#endif
+
+	#ifdef _M_IA64 //no verifyed
+		#define ARCH_IA64
+		#define LITTLE_ENDIAN_ARCH
+		#define MEMORY_ADDRES_64BIT
+	#endif
+
+	#ifdef _M_X64
+		#define ARCH_X64
+		#define LITTLE_ENDIAN_ARCH
+		#define MEMORY_ADDRES_64BIT
+	#endif
+
+#endif //_MSC_VER
+
+
+#ifdef __GNUG__ //gcc and icc compillers
+
+	#define INLINE inline __attribute__((always_inline))
+	#define INLINE_NO_DEBUG inline __attribute__((always_inline))
+	#ifdef __INTEL_COMPILER
+		#define NOINLINE
+	#else
+		#define NOINLINE __attribute__ ((noinline))
+	#endif
+	#define DECLARE_ALIGN(s) __attribute__ ((aligned (s)))
+	#define THIS_IS_USED __attribute__((used))
+	#define THREAD_LOCAL __thread
+
+	#ifdef __OPTIMIZE__
+		#undef DEBUG
+	#else
+		#define DEBUG
+	#endif //__OPTIMIZE__
+
+	#define DEFAULT_IMPLY_ALIGMENT 4
+	#define INT_SIZE 4
+
+	#ifdef __SSE__
+		#define INSTRUCTIONS_SIMD
+		#define INSTRUCTIONS_SSE
+	#endif
+
+	#ifdef __SSE2__
+		#define INSTRUCTIONS_SIMD
+		#define INSTRUCTIONS_SSE
+		#define INSTRUCTIONS_SSE2
+	#endif
+
+	#ifdef __SSE3__
+		#define INSTRUCTIONS_SIMD
+		#define INSTRUCTIONS_SSE
+		#define INSTRUCTIONS_SSE2
+		#define INSTRUCTIONS_SSE3
+	#endif
+
+	#ifdef __AVX__
+		#define INSTRUCTIONS_SIMD
+		#define INSTRUCTIONS_AVX
+	#endif
+
+	#ifdef __arm__
+		#define ARCH_ARM
+
+		#ifdef __ARMEB__
+			#define BIG_ENDIAN_ARCH
+		#endif
+
+		#ifdef __ARMEL__
+			#define LITTLE_ENDIAN_ARCH
+		#endif
+
+		#ifdef __thumb__
+			#define INSTRUCTIONS_THUMB
+		#endif
+
+		#ifdef __thumb2__
+			#define INSTRUCTIONS_THUMB2
+		#endif
+
+		#ifdef __SOFTFP__
+			#define INSTRUCTIONS_SOFTWARE_FPU
+		#endif
+
+		#ifdef __VFP_FP__
+			#define INSTRUCTIONS_VFP
+		#endif
+
+		#ifdef __ARM_NEON__
+			//#define INSTRUCTIONS_SIMD
+			//#define INSTRUCTIONS_NEON
+		#endif
+
+        #ifdef __arm64__
+            #define MEMORY_ADDRES_64BIT
+        #endif
+
+	#endif
+
+	#ifdef __i386__
+		#define ARCH_X86
+		#define ARCH_X86_i386
+		#define LITTLE_ENDIAN_ARCH
+	#endif
+
+	#ifdef __x86_64__
+		#define ARCH_X64
+		#define LITTLE_ENDIAN_ARCH
+		#define MEMORY_ADDRES_64BIT
+	#endif
+
+    #if defined(__APPLE__)
+        #ifdef TARGET_OS_IPHONE
+            #define BIG_ENDIAN_ARCH
+        #else
+            #define LITTLE_ENDIAN_ARCH
+        #endif
+    #endif
+
+    #ifdef __LP64__
+        #define MEMORY_ADDRES_64BIT
+    #endif
+
+#endif //__GNUG__
+
+
+//#ifdef __ANDROID__
+//#define NO_EXCEPTIONS
+//#endif
+
+#ifdef DISABLE_SIMD
+#undef INSTRUCTIONS_SIMD
+#undef INSTRUCTIONS_NEON
+#undef INSTRUCTIONS_SSE
+#undef INSTRUCTIONS_SSE2
+#undef INSTRUCTIONS_AVX
+#endif
+
+
+#ifdef INSTRUCTIONS_SIMD
+
+#ifdef INSTRUCTIONS_SSE
+#define ALLOCATION_ALIGNMENT(size) ((size) < 16 ? DEFAULT_IMPLY_ALIGMENT : (((size) & 15) == 0 ? 16 : DEFAULT_IMPLY_ALIGMENT))
+#endif
+
+#ifdef INSTRUCTIONS_NEON
+#define ALLOCATION_ALIGNMENT(size) ((size) < 16 ? DEFAULT_IMPLY_ALIGMENT : (((size) & 15) == 0 ? 16 : DEFAULT_IMPLY_ALIGMENT))
+#endif
+
+#ifdef INSTRUCTIONS_AVX
+#define ALLOCATION_ALIGNMENT(size) ((size) < 16 ? DEFAULT_IMPLY_ALIGMENT : ((size)  < 32 ? (((size) & 15) ==  0 ? 16 : DEFAULT_IMPLY_ALIGMENT) : (((size) & 31) ==  0 ? 32 : DEFAULT_IMPLY_ALIGMENT)))
+#endif
+
+#else
+#define ALLOCATION_ALIGNMENT(size) DEFAULT_IMPLY_ALIGMENT
+#endif
+
+#define ALIGN_NUMBER(x, a) ((x) % (a) == 0 ? (x) : (x) + (a) - (x) % (a))
+
+#if !defined(BIG_ENDIAN_ARCH) && !defined(LITTLE_ENDIAN_ARCH) 
+#error "ENDIAN indefined"
+#endif
+
+#ifdef DEBUG
+#define Assert(x) assert(x)
+#else
+#define Assert(x) {}
+#endif
+
+#define SeriosAssert(x) { assert(x); if(!(x))abort(); }
+
+

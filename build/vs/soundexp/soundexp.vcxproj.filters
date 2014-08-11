@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\..\code\soundexp\main.cpp">
+      <Filter>soundexp</Filter>
+    </ClCompile>
+    <ClCompile Include="libbase.cpp">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="libfilestorage.cpp">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="libopus.cpp">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="libsound.cpp">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="libsoundexpcpp.cpp">
+      <Filter>libs</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="soundexp">
+      <UniqueIdentifier>{36b89dfd-83d0-4383-8509-427b9c7860af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs">
+      <UniqueIdentifier>{74aa26f4-f806-4260-86dc-ab7b6be80068}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\code\soundexp\compile.h">
+      <Filter>soundexp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\soundexp\include.h">
+      <Filter>soundexp</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

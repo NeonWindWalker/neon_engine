@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="sound">
+      <UniqueIdentifier>{1ead1c07-e9dd-4ddd-8a5a-5fc8cc95be48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sound\test">
+      <UniqueIdentifier>{ef6a031f-c5c0-4003-9dd3-4474e1e48620}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="libbase.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="libaudio.cpp" />
+    <ClCompile Include="..\..\..\code\sound\tests\test.cpp">
+      <Filter>sound\test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\code\sound\data.cpp">
+      <Filter>sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\code\sound\system.cpp">
+      <Filter>sound</Filter>
+    </ClCompile>
+    <ClCompile Include="libfilestorage.cpp" />
+    <ClCompile Include="..\..\..\code\sound\utils.cpp">
+      <Filter>sound</Filter>
+    </ClCompile>
+    <ClCompile Include="libcelt.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\code\sound\compile.h">
+      <Filter>sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\sound\include.h">
+      <Filter>sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\sound\tests\test.h">
+      <Filter>sound\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\sound\core.h">
+      <Filter>sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\sound\data.h">
+      <Filter>sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\sound\system.h">
+      <Filter>sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\code\sound\utils.h">
+      <Filter>sound</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
